@@ -19,6 +19,7 @@ function convertToAbsolute(element, x, y) {
 function createMovingTextApp() {
 
   var _anim = {
+    step: 0,
     dir: 1,
     elements: [],
     src: [],
@@ -41,6 +42,12 @@ function createMovingTextApp() {
   };
 }
 
+function removeAllChildren(element) {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+}
+
 function convertText2SingleElements(elementId) {
   var textElement = document.getElementById(elementId);
   var text = textElement.textContent.trim();
@@ -50,9 +57,7 @@ function convertText2SingleElements(elementId) {
     span.appendChild(document.createTextNode(text[i]));
     textNodes.push(span);
   }
-  while (textElement.firstChild) {
-    textElement.removeChild(textElement.firstChild);
-  }
+  removeAllChildren(textElement);
   textNodes.forEach(function (item) {
     textElement.appendChild(item);
   });
@@ -76,7 +81,8 @@ var MovingText = createMovingTextApp();
 
 function init() {
   MovingText.addSourceElements(convertText2SingleElements('text1'));
-  MovingText.addDestinationElements(copyChildNodesInvisible('text1', 'text2'));
+  MovingText.addDestinationElements(copyChildNodesInvisible('text1', 'text2'))
+  removeAllChildren(document.getElementById('text2'));
   for (var i = 0; i < MovingText.anim.elements.length; i++) {
     var e = MovingText.anim.elements[i];
     var x = MovingText.anim.src[i].x;
@@ -85,6 +91,30 @@ function init() {
   }
 }
 
-function startAnimation() {
-
+function animationFrame() {
+  var len = MovingText.anim.elements.length;
+  var step = MovingText.anim.step;
+  var src = MovingText.anim.src;
+  var dst = MovingText.anim.dst;
+  for (var i = 0; i < len; i++) {
+    var e = MovingText.anim.elements[i];
+    var a = (Math.cos(Math.PI * step / 30) + 1) / 2;
+    var z = 1 - a;
+    var x = src[i].x * a + dst[i].x * z;
+    var y = src[i].y * a + dst[i].y * z;
+    e.style.left = x + 'px';
+    e.style.top = y + 'px';
+  }
 }
+
+function animate() {
+  if (!(0 <= MovingText.anim.step && MovingText.anim.step <= 30)) {
+    MovingText.anim.dir *= -1;
+  }
+  MovingText.anim.step += MovingText.anim.dir;
+  animationFrame();
+  setTimeout(animate, 50);
+}
+
+init();
+animate();
