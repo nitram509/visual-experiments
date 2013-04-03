@@ -108,11 +108,12 @@ function animationFrame() {
 }
 
 function animate() {
-  if (!(0 <= MovingText.anim.step && MovingText.anim.step <= 30)) {
+  MovingText.anim.step += MovingText.anim.dir;
+  if (!(0 < MovingText.anim.step && MovingText.anim.step < 30)) {
     MovingText.anim.dir *= -1;
   }
-  MovingText.anim.step += MovingText.anim.dir;
   animationFrame();
+
   setTimeout(animate, 50);
 }
 
