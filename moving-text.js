@@ -96,20 +96,23 @@ function animationFrame() {
   var step = MovingText.anim.step;
   var src = MovingText.anim.src;
   var dst = MovingText.anim.dst;
-  for (var i = 0; i < len; i++) {
-    var e = MovingText.anim.elements[i];
-    var a = (Math.cos(Math.PI * step / 30) + 1) / 2;
-    var z = 1 - a;
-    var x = src[i].x * a + dst[i].x * z;
-    var y = src[i].y * a + dst[i].y * z;
-    e.style.left = x + 'px';
-    e.style.top = y + 'px';
+  for (var i = 0; i < 30; i++) {
+    var idx = step - i;
+    if (0<=idx && idx <len) {
+      var e = MovingText.anim.elements[idx];
+      var a = (Math.cos(Math.PI * i / 30) + 1) / 2;
+      var z = 1 - a;
+      var x = src[idx].x * a + dst[idx].x * z;
+      var y = src[idx].y * a + dst[idx].y * z;
+      e.style.left = x + 'px';
+      e.style.top = y + 'px';
+    }
   }
 }
 
 function animate() {
   MovingText.anim.step += MovingText.anim.dir;
-  if (!(0 < MovingText.anim.step && MovingText.anim.step < 30)) {
+  if (!(0 < MovingText.anim.step && MovingText.anim.step < (30+MovingText.anim.elements.length))) {
     MovingText.anim.dir *= -1;
   }
   animationFrame();
