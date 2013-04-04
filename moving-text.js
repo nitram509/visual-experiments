@@ -98,7 +98,7 @@ function animationFrame() {
   var dst = MovingText.anim.dst;
   for (var i = 0; i < 30; i++) {
     var idx = step - i;
-    if (0<=idx && idx <len) {
+    if (0 <= idx && idx < len) {
       var e = MovingText.anim.elements[idx];
       var a = (Math.cos(Math.PI * i / 30) + 1) / 2;
       var z = 1 - a;
@@ -112,7 +112,7 @@ function animationFrame() {
 
 function animate() {
   MovingText.anim.step += MovingText.anim.dir;
-  if (!(0 < MovingText.anim.step && MovingText.anim.step < (30+MovingText.anim.elements.length))) {
+  if (!(0 < MovingText.anim.step && MovingText.anim.step < (30 + MovingText.anim.elements.length))) {
     MovingText.anim.dir *= -1;
   }
   animationFrame();
