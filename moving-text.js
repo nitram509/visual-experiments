@@ -91,29 +91,28 @@ function init() {
   }
 }
 
+function shiftElementPosition(index, step) {
+  var src = MovingText.anim.src;
+  var dst = MovingText.anim.dst;
+  var a = (Math.cos(Math.PI * step / 30) + 1) / 2;
+  var z = 1 - a;
+  var x = src[index].x * a + dst[index].x * z;
+  var y = src[index].y * a + dst[index].y * z;
+  var e = MovingText.anim.elements[index];
+  e.style.left = x + 'px';
+  e.style.top = y + 'px';
+  return {a: a, z: z, x: x, y: y, e: e};
+}
+
 function animationFrame() {
   var len = MovingText.anim.elements.length;
   var step = MovingText.anim.step;
-  var src = MovingText.anim.src;
-  var dst = MovingText.anim.dst;
-
-  function shiftElementPosition() {
-    var a = (Math.cos(Math.PI * i / 30) + 1) / 2;
-    var z = 1 - a;
-    var x = src[ridx].x * a + dst[ridx].x * z;
-    var y = src[ridx].y * a + dst[ridx].y * z;
-    var e = MovingText.anim.elements[ridx];
-    e.style.left = x + 'px';
-    e.style.top = y + 'px';
-    return {a: a, z: z, x: x, y: y, e: e};
-  }
-
   for (var i = 0; i < 30; i++) {
     var idx = step - i;
     for (var r = 0; r < len; r += (len / 2)) {
       var ridx = idx + r;
       if (0 <= idx && idx < (len / 2) && 0 <= ridx && ridx < len) {
-        shiftElementPosition();
+        shiftElementPosition(ridx, i);
       }
     }
   }
