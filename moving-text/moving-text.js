@@ -110,7 +110,7 @@ function animationFrame() {
   var step = MovingText.anim.step;
   for (var i = 0; i < 30; i++) {
     var offs = step - i;
-    if (0 <= offs && offs < (len / 2)) {
+    if (0 <= offs && offs <= (len / 4)) {
       for (var r = 0; r < len; r += (len / 2)) {
         var idx = offs + r;
         shiftElementPosition(idx, i);
