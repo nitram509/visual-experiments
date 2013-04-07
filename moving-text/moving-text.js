@@ -91,28 +91,31 @@ function init() {
   }
 }
 
-function shiftElementPosition(index, step) {
-  var src = MovingText.anim.src;
-  var dst = MovingText.anim.dst;
-  var a = (Math.cos(Math.PI * step / 30) + 1) / 2;
-  var z = 1 - a;
-  var x = src[index].x * a + dst[index].x * z;
-  var y = src[index].y * a + dst[index].y * z;
-  var e = MovingText.anim.elements[index];
-  e.style.left = x + 'px';
-  e.style.top = y + 'px';
-  return {a: a, z: z, x: x, y: y, e: e};
+function shiftElementPosition(elementIndex, animStep) {
+  if (0 <= elementIndex && elementIndex < MovingText.anim.elements.length) {
+    var src = MovingText.anim.src;
+    var dst = MovingText.anim.dst;
+    var a = (Math.cos(Math.PI * animStep / 30) + 1) / 2;
+    var z = 1 - a;
+    var x = src[elementIndex].x * a + dst[elementIndex].x * z;
+    var y = src[elementIndex].y * a + dst[elementIndex].y * z;
+    var e = MovingText.anim.elements[elementIndex];
+    e.style.left = x + 'px';
+    e.style.top = y + 'px';
+  }
 }
 
 function animationFrame() {
   var len = MovingText.anim.elements.length;
   var step = MovingText.anim.step;
   for (var i = 0; i < 30; i++) {
-    var idx = step - i;
-    for (var r = 0; r < len; r += (len / 2)) {
-      var ridx = idx + r;
-      if (0 <= idx && idx < (len / 2) && 0 <= ridx && ridx < len) {
-        shiftElementPosition(ridx, i);
+    var offs = step - i;
+    if (0 <= offs && offs < (len / 2)) {
+      for (var r = 0; r < len; r += (len / 2)) {
+        var idx = offs + r;
+        shiftElementPosition(idx, i);
+        idx = len / 2 + r - offs;
+        shiftElementPosition(idx, i);
       }
     }
   }
@@ -120,12 +123,12 @@ function animationFrame() {
 
 function animate() {
   MovingText.anim.step += MovingText.anim.dir;
-  if (!(0 < MovingText.anim.step && MovingText.anim.step < (30 + MovingText.anim.elements.length / 2))) {
+  if (!(0 < MovingText.anim.step && MovingText.anim.step < (30 + MovingText.anim.elements.length / 4))) {
     MovingText.anim.dir *= -1;
   }
   animationFrame();
 
-  setTimeout(animate, 50);
+  setTimeout(animate, 100);
 }
 
 init();
