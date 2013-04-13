@@ -13,13 +13,13 @@
 
 <h2>Zoom 100%</h2>
 <p>
-  <canvas id="micro-font-sample-100" width="512" height="512">
+  <canvas id="micro-font-sample-100" width="192" height="48" style="padding: 5px; border: 1px silver dotted">
     Please, use a modern browser which supports HTML5 Canvas.
   </canvas>
 </p>
 
 <script type="text/javascript">
-  function drawMicroFont() {
+  function drawMicroFont_100percent_putPixel_like() {
     var context = canvas.getContext("2d");
     for (var c = 0; c < Micro_Font_5x5.length / 5; c++) {
       var charImageData = context.createImageData(5, 5);
@@ -43,7 +43,7 @@
 <script type="text/javascript">
   var canvas = document.getElementById('micro-font-sample-100');
   if (canvas.getContext) {
-    drawMicroFont();
+    drawMicroFont_100percent_putPixel_like();
   }
 </script>
 
