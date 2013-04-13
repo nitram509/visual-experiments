@@ -24,23 +24,29 @@
 
 <h1>Nitram509's Micro Font 5x5</h1>
 
+<p>
+  Most similar to <a href="http://de.wikipedia.org/wiki/Codepage_437">Codepage 437</a>,
+  which was used in Germany back in the MS-DOS days.
+</p>
+
 <h2>Zoom 100%</h2>
 <p>
-  <canvas id="micro-font-sample-100" width="192" height="48">
+  <canvas id="micro-font-sample-100" width="96" height="96">
     Please, use a modern browser which supports HTML5 Canvas.
   </canvas>
 </p>
 
 <h2>Zoom 200%</h2>
 <p>
-  <canvas id="micro-font-sample-200" width="352" height="88">
+  <canvas id="micro-font-sample-200" width="176" height="176">
     Please, use a modern browser which supports HTML5 Canvas.
   </canvas>
 </p>
 
 <h2>Zoom 500%</h2>
 <p>
-  <canvas id="micro-font-sample-500" width="832" height="212">
+  <div style="width: 440px; font-size: 22px;padding-left: 8px; text-decoration: underline">0 1 2 3 4 5 6 7 8 9 A B C D E F</div>
+  <canvas id="micro-font-sample-500" width="428" height="428">
     Please, use a modern browser which supports HTML5 Canvas.
   </canvas>
 </p>
@@ -62,7 +68,7 @@
           }
         }
       }
-      context.putImageData(charImageData, (c % 32) * 6, 6 * Math.floor(c / 32));
+      context.putImageData(charImageData, (c % 16) * 6, 6 * Math.floor(c / 16));
     }
   }
 
@@ -74,8 +80,8 @@
       for (var y = 0; y < 5; y++) {
         for (var x = 0; x < 5; x++) {
           if ((Micro_Font_5x5[c * 5 + y] & (1 << x)) == (1 << x)) {
-            var dx = (c % 32) * 11;
-            var dy = 11 * Math.floor(c / 32);
+            var dx = (c % 16) * 11;
+            var dy = 11 * Math.floor(c / 16);
             context.fillRect(dx + x * 2, dy + y * 2, 2, 2);
           }
         }
@@ -93,8 +99,8 @@
       for (var y = 0; y < 5; y++) {
         for (var x = 0; x < 5; x++) {
           if ((Micro_Font_5x5[c * 5 + y] & (1 << x)) == (1 << x)) {
-            var dx = (c % 32) * 6;
-            var dy = 6 * Math.floor(c / 32);
+            var dx = (c % 16) * 6;
+            var dy = 6 * Math.floor(c / 16);
             context.fillRect(dx + x, dy + y, 1, 1);
           }
         }
