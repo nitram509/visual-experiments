@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Martin W. Kirst (@nitram509)">
+  <meta name="application-name" content="Nitram509 Micro Font 5x5">
+  <title>Nitram509's Micro Font 5x5</title>
+  <script type="text/javascript" src="Micro_Font_5x5.js"></script>
+</head>
+<body>
+
+<h1>Nitram509's Micro Font 5x5</h1>
+
+<h2>Zoom 100%</h2>
+<p>
+  <canvas id="micro-font-sample-100" width="512" height="512">
+    Please, use a modern browser which supports HTML5 Canvas.
+  </canvas>
+</p>
+
+<script type="text/javascript">
+  function drawMicroFont() {
+
+    var bits = [0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01];
+
+    var context = canvas.getContext("2d");
+    for (var c = 0; c < Micro_Font_5x5.length / 5; c++) {
+      var charImageData = context.createImageData(5, 5);
+      var img = charImageData.data
+      for (var y = 0; y < 5; y++) {
+        for (var x = 0; x < 5; x++) {
+          if ((Micro_Font_5x5[c * 5 + y] & bits[x]) == bits[x]) {
+            var offs = y * 5 + x;
+            img[offs * 4 + 0] = 0;
+            img[offs * 4 + 1] = 0;
+            img[offs * 4 + 2] = 0;
+            img[offs * 4 + 3] = 255;
+          }
+        }
+      }
+      context.putImageData(charImageData, (c % 32) * 6, 6 * Math.floor(c / 32));
+    }
+  }
+</script>
+
+<script type="text/javascript">
+  var canvas = document.getElementById('micro-font-sample-100');
+  if (canvas.getContext) {
+    drawMicroFont();
+  }
+</script>
+
+</body>
+</html>
