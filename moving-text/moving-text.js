@@ -128,7 +128,7 @@ function animate() {
   }
   animationFrame();
 
-  setTimeout(animate, 100);
+  setTimeout(animate, 30);
 }
 
 init();
