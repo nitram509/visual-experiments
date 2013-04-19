@@ -18,6 +18,9 @@
       padding: 5px;
       background: #e0e0e0;
     }
+    #micro-font-sample-500 {
+      cursor: crosshair;
+    }
   </style>
 </head>
 <body>
@@ -45,11 +48,26 @@
 
 <h2>Zoom 500%</h2>
 <p>
-  <div style="width: 440px; font-size: 22px;padding-left: 8px; text-decoration: underline">0 1 2 3 4 5 6 7 8 9 A B C D E F</div>
-  <canvas id="micro-font-sample-500" width="428" height="428">
+  <div style="font-size: 22px;padding-left: 8px;">
+  <span style="text-decoration: underline">0 1 2 3 4 5 6 7 8 9 A B C D E F</span>
+  &nbsp;&nbsp;
+  <label for="codepoint">Codepoint: </label>
+  <span id="codepoint" style="text-decoration: underline" ></span>
+  </div>
+  <canvas id="micro-font-sample-500" width="428" height="428" onclick="onCanvas500Click(event)">
     Please, use a modern browser which supports HTML5 Canvas.
   </canvas>
 </p>
+
+<script type="text/javascript">
+  function onCanvas500Click(event) {
+    var codepointElement = document.getElementById('codepoint');
+    var x = event.offsetX;
+    var y = event.offsetY;
+    var hex=['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','?'];
+    codepointElement.textContent = "" + hex[Math.floor(y/26)] + hex[Math.floor(x/26)];
+  }
+</script>
 
 <script type="text/javascript">
   function drawMicroFont_100percent_putPixel_like(canvas) {
