@@ -22,6 +22,7 @@ function createMovingTextApp() {
     step: 0,
     dir: 1,
     elements: [],
+    dstElements: [],
     src: [],
     dst: []
   };
@@ -36,7 +37,14 @@ function createMovingTextApp() {
     addDestinationElements: function (elements) {
       elements.forEach(function (item) {
         _anim.dst.push(getCoordinates(item));
+        _anim.dstElements.push(item);
       });
+    },
+    updateElementPositions: function () {
+      var elements = _anim.dstElements;
+      for (var i = 0, len = elements.length; i < len; i++) {
+        _anim.dst[i] = getCoordinates(elements[i]);
+      }
     },
     anim: _anim
   };
@@ -81,8 +89,8 @@ var MovingText = createMovingTextApp();
 
 function init() {
   MovingText.addSourceElements(convertText2SingleElements('text1'));
-  MovingText.addDestinationElements(copyChildNodesInvisible('text1', 'text2'))
-  removeAllChildren(document.getElementById('text2'));
+  MovingText.addDestinationElements(copyChildNodesInvisible('text1', 'text2'));
+//  removeAllChildren(document.getElementById('text2'));
   for (var i = 0; i < MovingText.anim.elements.length; i++) {
     var e = MovingText.anim.elements[i];
     var x = MovingText.anim.src[i].x;
@@ -122,13 +130,13 @@ function animationFrame() {
   }
 }
 
-window.requestAnimFrame = (function(){
-  return  window.requestAnimationFrame       ||
+window.requestAnimFrame = (function () {
+  return  window.requestAnimationFrame ||
       window.webkitRequestAnimationFrame ||
-      window.mozRequestAnimationFrame    ||
-      window.oRequestAnimationFrame      ||
-      window.msRequestAnimationFrame     ||
-      function( callback ){
+      window.mozRequestAnimationFrame ||
+      window.oRequestAnimationFrame ||
+      window.msRequestAnimationFrame ||
+      function (callback) {
         window.setTimeout(callback, 1000 / 60);
       };
 })();
@@ -138,6 +146,7 @@ function animate() {
   MovingText.anim.step += MovingText.anim.dir;
   if (!(0 < MovingText.anim.step && MovingText.anim.step < (30 + MovingText.anim.elements.length / 4))) {
     MovingText.anim.dir *= -1;
+    MovingText.updateElementPositions();
   }
   animationFrame();
 
