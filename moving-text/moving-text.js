@@ -24,7 +24,7 @@ function createMovingTextApp() {
     elements: [],
     src: [],
     dst: []
-  }
+  };
 
   return {
     addSourceElements: function (elements) {
@@ -100,6 +100,7 @@ function shiftElementPosition(elementIndex, animStep) {
     var x = src[elementIndex].x * a + dst[elementIndex].x * z;
     var y = src[elementIndex].y * a + dst[elementIndex].y * z;
     var e = MovingText.anim.elements[elementIndex];
+    //e.style["-webkit-transform"] = 'translate(' + x + 'px,' + y + 'px)';
     e.style.left = x + 'px';
     e.style.top = y + 'px';
   }
