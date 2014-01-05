@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Moving Text - @nitram509</title>
+  <meta name="author" content="Martin W. Kirst (@nitram509)">
+  <meta name="application-name" content="Moving Text">
+  <link href='http://fonts.googleapis.com/css?family=Jura:300' rel='stylesheet' type='text/css'>
+  <style type="text/css">
+    body {
+      background-color: #f0fffa;
+      border: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    .text-box {
+      background-color: #fafccf;
+      box-shadow: 2px 2px 2px #aaa;
+
+      padding: 1%;
+      border: 1px solid silver;
+      border-radius: 5px;
+
+      font-family: 'Jura', sans-serif;
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    .text-box-left {
+      float: left;
+      margin: 5% 1% 1% 5%;
+      width: 56%;
+      min-height: 160px;
+    }
+
+    .text-box-right {
+      float: right;
+      margin: 5% 5% 1% 1%;
+      width: 25%;
+      min-height: 320px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="text1" class="text-box text-box-left">
+  <span style="visibility: visible">
+    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
+  magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
+  gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
+  elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
+  et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
+  sit ame.
+  </span>
+</div>
+
+<div id="text2" class="text-box text-box-right">
+
+</div>
+
+<script type="text/javascript" src="moving-text.js"></script>
+
+</body>
+</html>
