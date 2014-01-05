@@ -19,6 +19,15 @@ function convertToAbsolute(element, x, y) {
 function createMovingTextApp() {
 
   var _anim = {
+
+    xElements: [
+      {
+        animElement: undefined,
+        x: 0,
+        y: 0
+      }
+    ],
+
     step: 0,
     dir: 1,
     elements: [],
@@ -39,12 +48,6 @@ function createMovingTextApp() {
         _anim.dst.push(getCoordinates(item));
         _anim.dstElements.push(item);
       });
-    },
-    updateElementPositions: function () {
-      var elements = _anim.dstElements;
-      for (var i = 0, len = elements.length; i < len; i++) {
-        _anim.dst[i] = getCoordinates(elements[i]);
-      }
     },
     anim: _anim
   };
@@ -90,67 +93,58 @@ var MovingText = createMovingTextApp();
 function init() {
   MovingText.addSourceElements(convertText2SingleElements('text1'));
   MovingText.addDestinationElements(copyChildNodesInvisible('text1', 'text2'));
-//  removeAllChildren(document.getElementById('text2'));
+  MovingText.anim.xElements = [];
   for (var i = 0; i < MovingText.anim.elements.length; i++) {
     var e = MovingText.anim.elements[i];
     var x = MovingText.anim.src[i].x;
     var y = MovingText.anim.src[i].y;
     convertToAbsolute(e, x, y);
-  }
-}
 
-function shiftElementPosition(elementIndex, animStep) {
-  if (0 <= elementIndex && elementIndex < MovingText.anim.elements.length) {
-    var src = MovingText.anim.src;
-    var dst = MovingText.anim.dst;
-    var a = (Math.cos(Math.PI * animStep / 30) + 1) / 2;
-    var z = 1 - a;
-    var x = src[elementIndex].x * a + dst[elementIndex].x * z;
-    var y = src[elementIndex].y * a + dst[elementIndex].y * z;
-    var e = MovingText.anim.elements[elementIndex];
-    //e.style["-webkit-transform"] = 'translate(' + x + 'px,' + y + 'px)';
-    e.style.left = x + 'px';
-    e.style.top = y + 'px';
-  }
-}
-
-function animationFrame() {
-  var len = MovingText.anim.elements.length;
-  var step = MovingText.anim.step;
-  for (var i = 0; i < 30; i++) {
-    var offs = step - i;
-    if (0 <= offs && offs <= (len / 4)) {
-      for (var r = 0; r < len; r += (len / 2)) {
-        var idx = offs + r;
-        shiftElementPosition(idx, i);
-        idx = len / 2 + r - offs;
-        shiftElementPosition(idx, i);
+    (function () {
+      var elem = {
+        animElement: e,
+        x: MovingText.anim.src[i].x,
+        y: MovingText.anim.src[i].y
       }
-    }
+      MovingText.anim.xElements.push(elem);
+
+      var updateCallback = function () {
+        this.animElement.style.left = this.x + 'px';
+        this.animElement.style.top = this.y + 'px';
+      }
+
+      var delay = i % ((MovingText.anim.src.length / 4) | 0) * 50;
+      var animTime = 2000;
+
+      var tween = new TWEEN.Tween(elem)
+         .to({
+           x: MovingText.anim.dst[i].x,
+           y: MovingText.anim.dst[i].y
+         }, animTime)
+         .delay(delay)
+         .onUpdate(updateCallback)
+         .easing(TWEEN.Easing.Sinusoidal.InOut)
+         .start();
+
+      var tweenBack = new TWEEN.Tween(elem)
+         .to({
+           x: MovingText.anim.src[i].x,
+           y: MovingText.anim.src[i].y
+         }, animTime)
+         .delay(delay)
+         .onUpdate(updateCallback)
+         .easing(TWEEN.Easing.Sinusoidal.InOut);
+
+      tween.chain(tweenBack);
+      tweenBack.chain(tween);
+    })();
+
   }
 }
-
-window.requestAnimFrame = (function () {
-  return  window.requestAnimationFrame ||
-      window.webkitRequestAnimationFrame ||
-      window.mozRequestAnimationFrame ||
-      window.oRequestAnimationFrame ||
-      window.msRequestAnimationFrame ||
-      function (callback) {
-        window.setTimeout(callback, 1000 / 60);
-      };
-})();
-
 
 function animate() {
-  MovingText.anim.step += MovingText.anim.dir;
-  if (!(0 < MovingText.anim.step && MovingText.anim.step < (30 + MovingText.anim.elements.length / 4))) {
-    MovingText.anim.dir *= -1;
-    MovingText.updateElementPositions();
-  }
-  animationFrame();
-
-  requestAnimFrame(animate);
+  requestAnimationFrame(animate);
+  TWEEN.update();
 }
 
 init();
