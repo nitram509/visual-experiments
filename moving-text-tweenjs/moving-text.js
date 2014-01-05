@@ -86,7 +86,8 @@ var MovingText = createMovingTextApp();
 function init() {
   MovingText.setSourceElements(convertText2SingleElements('text1'));
   MovingText.setDestinationElements(copyChildNodesInvisible('text1', 'text2'));
-  for (var i = 0; i < MovingText.elements.length; i++) {
+  var len = MovingText.elements.length;
+  for (var i = 0; i < len; i++) {
     var elem = MovingText.elements[i];
 
     var srcCoordinates = getCoordinates(elem.srcElement);
@@ -100,8 +101,8 @@ function init() {
       this.animElement.style.top = this.y + 'px';
     }
 
-    var delay = 50 + ((Math.sin((Math.PI * i)/10) * 25) | 0);
-    var animTime = 1000;
+    var delay = 50 + ((Math.sin(i * 2 * Math.PI / len) * 25));
+    var animTime = 5000;
 
     var tween = new TWEEN.Tween(elem)
        .to({
