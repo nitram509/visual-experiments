@@ -5,6 +5,8 @@ Moving Text
 ------------------
 Some experiments, how to make a nice text animation.
 
+![Demo recording](/moving-text-vanilla-js/moving-text-demo.gif?raw=true)
+
 Micro Font 5x5
 ------------------
 A custom pixel based font which only needs 5x5 pixel per character.
