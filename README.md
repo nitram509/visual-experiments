@@ -14,3 +14,6 @@ I've used it in some older projects, back in the MS-DOS days ...
 Remember when your screen resolution was only 320x200 pixel in total ;-)
 
 ![Sample: The quick brown fox jumps over the lazy dog](/micro-font-5x5/the_quick_brown_fox_jumps_over_the_lazy_dog.png?raw=true)
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/nitram509/visual-experiments/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
