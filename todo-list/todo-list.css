@@ -1,0 +1,50 @@
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
+
+.form-todos {
+  max-width: 300px;
+  padding: 19px 29px 40px;
+  margin: 0 auto 20px;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+}
+
+.form-todos .form-todos-heading,
+.form-todos .checkbox {
+  margin-bottom: 10px;
+}
+
+.form-todos input[type="text"],
+.form-todos input[type="button"],
+.form-todos input[type="password"] {
+  font-size: 16px;
+  height: auto;
+  margin-top: 15px;
+  padding: 7px 9px;
+}
+
+.form-todos input[type="button"] {
+  color: #808080;
+}
+
+div.todo-item-container {
+  overflow: hidden;
+}
+
+.form-todos,
+div.input-append,
+div.todo-item-container,
+#todo-item-panel {
+  -webkit-transition: height 1s ease-out, margin 1s ease-out;
+  -moz-transition: height 1s ease-out, margin 1s ease-out;
+  transition: height 1s ease-out, margin 1s ease-out;
+}

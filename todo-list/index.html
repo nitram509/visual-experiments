@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Todo List Example</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Todo List Example">
+  <meta name="author" content="Martin W. Kirst">
+
+  <!-- Le styles -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="todo-list.css" rel="stylesheet">
+  <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <form class="form-todos" method="get" action="#">
+    <h2 class="form-todos-heading">
+      <img src="img/bed-con-2014-orange.png" style="height: 30px; display: inline-block">
+      ToDo List
+    </h2>
+    <div id="todo-item-panel">
+
+      <div class="todo-item-container">
+        <div class="input-append" style="width: 90%">
+          <input type="text" class="input-block-level" placeholder="todo 1 ...">
+          <input type="button" class="btn muted btn-delete" value="&minus;">
+        </div>
+      </div>
+
+    </div>
+    <button class="btn btn-small btn-primary pull-right btn-add"><i class="icon-plus icon-white"> </i></button>
+  </form>
+
+</div>
+
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="todo-list.js"></script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-48819454-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>
