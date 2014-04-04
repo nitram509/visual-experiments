@@ -15,5 +15,15 @@ Remember when your screen resolution was only 320x200 pixel in total ;-)
 
 ![Sample: The quick brown fox jumps over the lazy dog](/micro-font-5x5/the_quick_brown_fox_jumps_over_the_lazy_dog.png?raw=true)
 
+Scrolling Text
+------------------
+Vertical scroller, made as part of my talk @bedcon (Berlin Expoert Days '2014)
+
+
+ToDo List
+------------------
+Obviously a todo list with some nice animation in, made as part of my talk @bedcon (Berlin Expoert Days '2014)
+
+
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/nitram509/visual-experiments/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
