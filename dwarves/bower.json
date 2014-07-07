@@ -1,0 +1,19 @@
+{
+  "name": "dwarves",
+  "version": "0.0.0",
+  "homepage": "https://github.com/nitram509/visual-experiments",
+  "authors": [
+    "nitram509 <maki@bitkings.de>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "rxjs": "~2.2.27"
+  }
+}

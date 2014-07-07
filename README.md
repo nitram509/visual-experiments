@@ -1,6 +1,17 @@
 Visual Experiments
 ==================
 
+Dwarves Animation
+------------------
+
+### Install/Update
+
+````
+npm install -g bower
+bower install
+````
+
+
 Moving Text
 ------------------
 Some experiments, how to make a nice text animation.
