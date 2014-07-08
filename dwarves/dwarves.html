@@ -12,28 +12,69 @@
 <div id="dwarv" class="" style="border:1px solid black"></div>
 
 <script type="text/javascript">
-window.requestAnimFrame = (function(){
-  return  window.requestAnimationFrame       ||
-          window.webkitRequestAnimationFrame ||
-          window.mozRequestAnimationFrame    ||
-          function( callback ){
-            window.setTimeout(callback, 1000 / 60);
-          };
-})();
-    var i = 0;
+  window.requestAnimFrame = (function () {
+    return  window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            function (callback) {
+              window.setTimeout(callback, 1000 / 60);
+            };
+  })();
+  var i = 0;
 </script>
 
 <script type="text/javascript">
-  (function animloop(){
-  requestAnimFrame(animloop);
-  $('#dwarv').attr('class', 'dwarv-1 sprite-' + (5+i));
-  i++;
-  i = i % 6;
-})();
+  // simple, naive implementation
+  //  (function animloop(){
+  //  requestAnimFrame(animloop);
+  //  $('#dwarv').attr('class', 'dwarv-1 sprite-' + (5+i));
+  //  i++;
+  //  i = i % 6;
+  //})();
 </script>
 
 <button onclick="$('#dwarv').attr('class', 'dwarv-1 sprite-' + (--i))">left</button>
 <button onclick="$('#dwarv').attr('class', 'dwarv-1 sprite-' + (++i))">right</button>
+
+<script type="application/javascript" src="bower_components/rxjs/dist/rx.all.js"></script>
+<script type="application/javascript" src="bower_components/rxjs/dist/rx.all.compat.js"></script>
+
+<script type="application/javascript">
+
+  function animloop() {
+    $('#dwarv').attr('class', 'dwarv-1 sprite-' + (5 + i));
+    i++;
+    i = i % 6;
+  }
+
+  var source = Rx.Observable.generateWithRelativeTime(
+          0,
+          function (x) { /* condition */
+            return true;
+          },
+          function (x) { /* iterator */
+            return x + 1;
+          },
+          function (x) { /* result selector */
+            return x;
+          },
+          function (x) {	// Time selector
+            return 125 /* ms */;
+          }
+  ).timeInterval();
+
+  var subscription = source.subscribe(
+          function (x) {
+            requestAnimFrame(animloop);
+          },
+          function (err) {
+            console.log('Error: ' + err);
+          },
+          function () {
+            console.log('Completed');
+          });
+
+</script>
 
 </body>
 </html>
