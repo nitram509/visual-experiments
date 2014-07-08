@@ -41,10 +41,8 @@
 
 <script type="application/javascript">
 
-  function animloop() {
-    $('#dwarv').attr('class', 'dwarv-1 sprite-' + (5 + i));
-    i++;
-    i = i % 6;
+  function animloop(index) {
+    $('#dwarv').attr('class', 'dwarv-1 sprite-' + (5 + index % 6));
   }
 
   var source = Rx.Observable.generateWithRelativeTime(
@@ -65,7 +63,7 @@
 
   var subscription = source.subscribe(
           function (x) {
-            requestAnimFrame(animloop);
+            requestAnimFrame(animloop.bind(window, x.value));
           },
           function (err) {
             console.log('Error: ' + err);
