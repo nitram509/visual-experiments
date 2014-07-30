@@ -9,7 +9,9 @@
 </head>
 <body>
 
-<div id="dwarv" class="" style="border:1px solid black"></div>
+<!--<div id="dwarv" class="" style="border:1px solid black"></div>-->
+
+<div id="dwarvContainer"></div>
 
 <script type="text/javascript">
   window.requestAnimFrame = (function () {
@@ -35,9 +37,11 @@
 
 <button onclick="$('#dwarv').attr('class', 'dwarv-1 sprite-' + (--i))">left</button>
 <button onclick="$('#dwarv').attr('class', 'dwarv-1 sprite-' + (++i))">right</button>
+<button id="btnHold">hold</button>
 
 <script type="application/javascript" src="bower_components/rxjs/dist/rx.all.js"></script>
 <script type="application/javascript" src="bower_components/rxjs/dist/rx.all.compat.js"></script>
+<script type="application/javascript" src="bower_components/react/react.js"></script>
 
 <script type="application/javascript">
 
@@ -45,32 +49,65 @@
     $('#dwarv').attr('class', 'dwarv-1 sprite-' + (5 + index % 6));
   }
 
-  var source = Rx.Observable.generateWithRelativeTime(
-          0,
-          function (x) { /* condition */
-            return true;
-          },
-          function (x) { /* iterator */
-            return x + 1;
-          },
-          function (x) { /* result selector */
-            return x;
-          },
-          function (x) {	// Time selector
-            return 125 /* ms */;
-          }
-  ).timeInterval();
+  var world = {
+    baseX: -128,
+    x: 0,
+    y: 100,
+    id: "world"
+  };
 
-  var subscription = source.subscribe(
-          function (x) {
-            requestAnimFrame(animloop.bind(window, x.value));
-          },
-          function (err) {
-            console.log('Error: ' + err);
-          },
-          function () {
-            console.log('Completed');
+  function makeElement(node) {
+    return React.DOM.div({
+      className: node.id
+//      style: {
+//        left: (node.x + (node.baseX || 0)) | 0 + "px",
+//        top: (node.y + (node.baseY || 0)) | 0 + "px"
+//      }
+    });
+  }
+
+  var container = document.getElementById("dwarvContainer");
+
+  function renderScene(nodes) {
+    React.renderComponent(
+            React.DOM.div(null, nodes.map(makeElement)),
+            container
+    );
+  }
+
+  var TIME_PER_FRAME_IN_MILLIS = 125;
+
+  var dwarveStream = Rx.Observable.interval(TIME_PER_FRAME_IN_MILLIS)
+          .map(function (x) {
+            var spriteId = 5 + (x % 6);
+            return {
+              id: "dwarv-1 sprite-" + spriteId,
+              baseX: -128,
+              x: ((x % 64) * -8),
+              y: 384
+            }
           });
+
+  var holdButtonSubject = new Rx.Subject();
+  $("#btnHold").click(function (e) {
+    holdButtonSubject.onNext(e);
+  });
+
+  var xStream = holdButtonSubject.scan(function () {
+    return {
+      id: "hold"
+    }
+  }, function (p, keys) {
+    // will be triggered when Button hit
+    return p;
+  });
+
+  xStream.subscribe(function (x) {
+    console.log(x);
+  });
+
+  Rx.Observable.zipArray(dwarveStream).subscribe(renderScene);
+
 
 </script>
 
