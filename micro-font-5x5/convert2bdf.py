@@ -295,7 +295,7 @@ class BdfWriter:
     __BDF_START_FONT = [
         'STARTFONT 2.2',
         'COMMENT A monospaced micro font. Uppercase chars only.',
-        'FONT Nitram Micro Mono',
+        'FONT -Nitram-Micro-Mono',
         'SIZE 5 320 200',
         'FONTBOUNDINGBOX 5 5 0 0',
         'STARTPROPERTIES 4',
