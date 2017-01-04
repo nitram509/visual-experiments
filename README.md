@@ -21,7 +21,7 @@ Some experiments, how to make a nice text animation.
 Micro Font 5x5
 ------------------
 Started here and permanently moved to new location
-https://github.com/nitram509/nitram-micro-font%
+https://github.com/nitram509/nitram-micro-font
 
 Scrolling Text
 ------------------
